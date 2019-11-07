@@ -2,4 +2,6 @@
 <workspaceFilter version="1.0">
     <filter root="/apps/publication"/>
     <filter root="/apps/sling" />
+    <filter root="/conf/publication"/>
+    <filter root="/conf/global" mode="update"/>
 </workspaceFilter>

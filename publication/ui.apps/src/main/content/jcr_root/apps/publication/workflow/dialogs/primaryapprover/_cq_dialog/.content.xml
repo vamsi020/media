@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:granite="http://www.adobe.com/jcr/granite/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="Properties"
+    sling:resourceType="cq/gui/components/authoring/dialog">
+    <content
+        jcr:primaryType="nt:unstructured"
+        sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+        <items jcr:primaryType="nt:unstructured">
+            <column
+                jcr:primaryType="nt:unstructured"
+                sling:resourceType="granite/ui/components/coral/foundation/container">
+                <items jcr:primaryType="nt:unstructured">
+                    <accessType
+                        granite:class="cq-dialog-dropdown-showhide"
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/form/select"
+                        fieldLabel="Type"
+                        name="accessType">
+                        <items jcr:primaryType="nt:unstructured">
+                            <public
+                                jcr:primaryType="nt:unstructured"
+                                text="Public"
+                                value="public"/>
+                            <restricted
+                                jcr:primaryType="nt:unstructured"
+                                text="Restricted"
+                                value="restricted"/>
+                        </items>
+                        <granite:data
+                            jcr:primaryType="nt:unstructured"
+                            cq-dialog-dropdown-showhide-target=".accessType-showhide-target"/>
+                    </accessType>
+                    <restrictedContainer
+                        granite:class="accessType-showhide-target"
+                        jcr:primaryType="nt:unstructured"
+                        sling:resourceType="granite/ui/components/coral/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <tagCustomers
+	                            jcr:primaryType="nt:unstructured"
+	                            sling:resourceType="cq/gui/components/coral/common/form/tagfield"
+	                            fieldLabel="Tag Customers"
+	                            name="customerTags"
+	                            cq:showOnCreate = "{Boolean}true"
+	                            allowCreate = "{Boolean}true"
+							    multiple = "{Boolean}true"
+							    metaType = "tags"
+							    cq-msm-lockable = "cq:tags">
+                       		</tagCustomers>
+                        </items>
+                        <granite:data
+                            jcr:primaryType="nt:unstructured"
+                            showhidetargetvalue="restricted"/>
+                    </restrictedContainer>
+                </items>
+            </column>
+        </items>
+    </content>
+</jcr:root>

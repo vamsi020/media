@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured">
+    <ui jcr:primaryType="nt:unstructured">
+        <components jcr:primaryType="nt:unstructured">
+            <shell jcr:primaryType="nt:unstructured">
+                <propertiespage jcr:primaryType="nt:unstructured">
+                    <propertiespage.jsp/>
+                </propertiespage>
+                <collectionpage jcr:primaryType="nt:unstructured">
+                    <collectionpage.jsp/>
+                </collectionpage>
+            </shell>
+        </components>
+    </ui>
+</jcr:root>
