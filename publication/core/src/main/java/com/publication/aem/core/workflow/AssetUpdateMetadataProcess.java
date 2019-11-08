@@ -8,7 +8,6 @@ import java.util.Set;
 
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.api.resource.path.Path;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
@@ -22,16 +21,12 @@ import com.adobe.granite.workflow.exec.Workflow;
 import com.adobe.granite.workflow.exec.WorkflowProcess;
 import com.adobe.granite.workflow.metadata.MetaDataMap;
 import com.publication.aem.core.AssetUpdateService;
-import com.publication.aem.core.UserGroupService;
 
 @Component(service=WorkflowProcess.class,
 	immediate= true,
-	property={"process.label= Asset Absolute Time Update Process"})
+	property={"process.label= Asset Metadata Update Process"})
 public class AssetUpdateMetadataProcess implements WorkflowProcess{
 	Logger log = LoggerFactory.getLogger(this.getClass());
-	
-	@Reference
-	UserGroupService userGroupService;
 	
 	@Reference
 	AssetUpdateService assetUpdateService;
@@ -47,8 +42,7 @@ public class AssetUpdateMetadataProcess implements WorkflowProcess{
 	}
 	
 	private void updateAsset(Workflow wf, MetaDataMap metadata, ResourceResolver resolver) {
-		Path payload = (Path) wf.getWorkflowData().getPayload();
-		String payloadPath = payload.getPath();
+		String payloadPath = (String) wf.getWorkflowData().getPayload();
 		String accessType = metadata.get("accessType", String.class);
 		String[] customerTags = metadata.get("customerTags", String[].class);
 		HashMap<String, Object> map = new HashMap<>();
@@ -58,12 +52,12 @@ public class AssetUpdateMetadataProcess implements WorkflowProcess{
 		if(payloadPath.startsWith("/dam")){
 			log.info("Path in dam ");
 			paths.add(payloadPath);
-			assetUpdateService.updateAssetProperties(paths, map);				
+			assetUpdateService.updateAssetProperties(paths, map);
 		}else if(payloadPath.startsWith("/etc")){
 			log.info("Path in etc muti sellect ");
 			Resource packageResource = resolver.getResource(payloadPath);
 			if(packageResource != null){
-				Resource filterRes = packageResource.getChild("filter");
+				Resource filterRes = packageResource.getChild("jcr:content/vlt:definition/filter");
 				if(filterRes != null && filterRes.isResourceType("cq/workflow/components/collection/definition/resourcelist")){
 					Iterator<Resource> resItr = filterRes.getChildren().iterator();
 					while (resItr.hasNext()) {

@@ -3,8 +3,10 @@ package com.publication.aem.core;
 import java.util.HashMap;
 import java.util.Set;
 
+import javax.jcr.RepositoryException;
+
 public interface AssetUpdateService {
 
-	void updateAssetProperties(Set<String> paths, HashMap<String, Object> metadata);
+	public void updateAssetProperties(Set<String> paths, HashMap<String, Object> metadata);
 
 }

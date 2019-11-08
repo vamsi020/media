@@ -53,8 +53,6 @@ public class AssetFinalApproverSelectionProcess implements ParticipantStepChoose
 			}
 			while (listItr.hasNext()) {
 				HistoryItem historyItem = (HistoryItem) listItr.next();
-				log.info("historyItem Id : "+historyItem.getWorkItem().getNode().getId());
-				log.info("historyItem User Id : "+historyItem.getUserId());
 				if(historyItem.getWorkItem().getNode().getId().equals("node2")){
 					participant = historyItem.getUserId();
 				}
