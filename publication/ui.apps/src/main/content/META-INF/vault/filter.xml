@@ -2,6 +2,8 @@
 <workspaceFilter version="1.0">
     <filter root="/apps/publication"/>
     <filter root="/apps/sling" />
+    <filter root="/apps/granite" mode="merge"/>
     <filter root="/conf/publication"/>
     <filter root="/conf/global" mode="update"/>
+    <filter root="var/workflow/models/publication" mode="update"/>
 </workspaceFilter>

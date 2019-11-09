@@ -12,7 +12,6 @@ import com.adobe.granite.workflow.WorkflowSession;
 import com.adobe.granite.workflow.exec.HistoryItem;
 import com.adobe.granite.workflow.exec.WorkItem;
 import com.adobe.granite.workflow.exec.Workflow;
-import com.adobe.granite.workflow.exec.WorkflowData;
 import com.adobe.granite.workflow.exec.WorkflowProcess;
 import com.adobe.granite.workflow.metadata.MetaDataMap;
 
@@ -29,17 +28,15 @@ public class AssetAbsoluteTimeUpdateProcess implements WorkflowProcess{
 		List<HistoryItem> history = wfSession.getHistory(wf);
 		HistoryItem lastHistoryItem = history.get(history.size()-1);
 		MetaDataMap lastItemMetadata = lastHistoryItem.getWorkItem().getMetaDataMap();
-		wfSession.updateWorkflowData(wf,updateAbsoluteTime(wf,lastItemMetadata));
-	}
-	
-	private WorkflowData updateAbsoluteTime(Workflow wf, MetaDataMap metadata){
-		String scheduleTime = metadata.get("scheduleTime",String.class);
+		String scheduleTime = lastItemMetadata.get("scheduleTime",String.class);
 		if(scheduleTime != null && scheduleTime.equals("later")) {
-			Calendar absoluteTime = metadata.get("absoluteTime",Calendar.class);
+			Calendar absoluteTime = lastItemMetadata.get("absoluteTime",Calendar.class);
 			if(absoluteTime != null){
-				wf.getMetaDataMap().put("absoluteTime", absoluteTime.getTimeInMillis());
+				MetaDataMap modifiedMap = wf.getMetaDataMap();
+				modifiedMap.put("absoluteTime", Long.toString(absoluteTime.getTimeInMillis()));
+				wf.getWorkflowData().getMetaDataMap().put("absoluteTime", Long.toString(absoluteTime.getTimeInMillis()));
+				wfSession.updateWorkflowData(wf, wf.getWorkflowData());
 			}
 		}
-		return wf.getWorkflowData();
 	}
 }
